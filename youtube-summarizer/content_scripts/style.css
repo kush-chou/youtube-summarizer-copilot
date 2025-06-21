@@ -1,0 +1,43 @@
+.summarizer-btn {
+  margin: 0 0 0 8px;
+  display: flex;
+  align-items: center;
+  /* Using YouTube's own variables for better theme integration */
+  background-color: var(--yt-spec-button-chip-background-hover);
+  color: var(--yt-spec-text-primary);
+  border: 1px solid var(--yt-spec-button-chip-border-color);
+  border-radius: 18px;
+  padding: 0 12px;
+  font-size: 14px;
+  font-weight: 500;
+  height: 36px;
+  cursor: pointer;
+  text-decoration: none !important;
+}
+
+.summarizer-btn:hover {
+    background-color: var(--yt-spec-touch-response);
+}
+
+.summarizer-btn img {
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+}
+
+.thumbnail-btn {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: none;
+}
+
+.thumbnail-wrapper {
+    position: relative;
+}
