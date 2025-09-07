@@ -15,28 +15,32 @@
   "content_scripts": [
     {
       "matches": ["https://*.youtube.com/*"],
-      "js": ["youtube_scraper.js"],
-      "css": ["style.css"]
+      "js": ["content_scripts/youtube_scraper.js"],
+      "css": ["content_scripts/style.css"]
     }
   ],
   "browser_action": {
     "default_icon": {
-      "16": "star-icon-16.svg",
-      "48": "star-icon-48.svg"
+      "16": "icons/star-icon-16.svg",
+      "48": "icons/star-icon-48.svg"
     },
     "default_title": "YouTube Summarizer"
   },
   "icons": {
-    "16": "star-icon-16.svg",
-    "48": "star-icon-48.svg"
+    "16": "icons/star-icon-16.svg",
+    "48": "icons/star-icon-48.svg"
   },
   "web_accessible_resources": [
-    "summarize-icon.svg"
+    "icons/summarize-icon.svg"
   ],
   "browser_specific_settings": {
     "gecko": {
-      "id": "youtubesummarizer@example.com",
-      "data_collection_permissions": false,
+      "id": "youtube-summarizer-copilot@kush-chou.github.io",
+      "data_collection_permissions": {
+        "allow_opt_out": true,
+        "description": "This extension does not collect any personal data.",
+        "required": ["none"]
+      },
       "update_url": "https://kush-chou.github.io/youtube-summarizer-copilot/updates.json"
     }
   }
