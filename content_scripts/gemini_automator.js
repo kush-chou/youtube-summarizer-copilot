@@ -1,7 +1,7 @@
-// gemini_automator.js
+// gemini_automator.js (v4.5 - Firefox)
 
 const automateGemini = async () => {
-    const result = await chrome.storage.local.get('fullPrompt');
+    const result = await browser.storage.local.get('fullPrompt');
     const prompt = result.fullPrompt;
 
     if (!prompt) {
@@ -24,17 +24,19 @@ const automateGemini = async () => {
     });
 
     try {
+        // This selector targets the rich text editor where the prompt is entered.
         const promptBox = await waitForElement('div.ql-editor[contenteditable="true"]');
         promptBox.focus();
-        promptBox.innerHTML = `<p>${prompt.replace(/\n/g, '<br>')}</p>`;
+        promptBox.innerText = prompt;
         promptBox.dispatchEvent(new Event('input', { bubbles: true, cancelable: true }));
 
         await new Promise(resolve => setTimeout(resolve, 500));
 
+        // This selector targets the send button, ensuring it is not disabled.
         const submitButton = await waitForElement('button[aria-label="Send message"]:not([disabled])');
         submitButton.click();
         
-        chrome.storage.local.remove('fullPrompt');
+        browser.storage.local.remove('fullPrompt');
     } catch (error) {
         console.error('[Gemini Automator] Failed:', error);
         alert(`Gemini Automation Failed: ${error.message}\nThe prompt is on your clipboard. Please paste it manually.`);
@@ -43,3 +45,4 @@ const automateGemini = async () => {
 };
 
 automateGemini();
+

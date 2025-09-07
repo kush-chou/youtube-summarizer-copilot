@@ -1,0 +1,12 @@
+{
+  "addons": {
+    "youtubesummarizer@example.com": {
+      "updates": [
+        {
+          "version": "4.6",
+          "update_link": "https://kush-chou.github.io/youtube-summarizer-copilot/youtube_summarizer_co-pilot-4.6.xpi"
+        }
+      ]
+    }
+  }
+}
