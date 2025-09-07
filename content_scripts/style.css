@@ -20,24 +20,18 @@
     background-color: var(--yt-spec-touch-response);
 }
 
-.thumbnail-btn {
-  position: absolute;
-  bottom: 8px;
-  right: 8px;
-  z-index: 100;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  font-size: 12px;
-  padding: 4px 12px;
-  border-radius: 4px;
-  border: none;
-  transition: background-color 0.3s ease;
+.summarizer-menu-item {
+  /* Mimic YouTube's menu item styling */
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--yt-spec-text-primary);
+}
+
+.summarizer-menu-item:hover {
+  background-color: var(--yt-spec-touch-response);
 }
 
 .thumbnail-wrapper {
     position: relative;
-}
-
-.thumbnail-btn:hover {
-    background-color: rgba(0, 0, 0, 0.9);
 }

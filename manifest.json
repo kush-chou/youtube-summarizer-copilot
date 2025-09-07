@@ -37,8 +37,6 @@
     "gecko": {
       "id": "youtube-summarizer-copilot@kush-chou.github.io",
       "data_collection_permissions": {
-        "allow_opt_out": true,
-        "description": "This extension does not collect any personal data.",
         "required": ["none"]
       },
       "update_url": "https://kush-chou.github.io/youtube-summarizer-copilot/updates.json"

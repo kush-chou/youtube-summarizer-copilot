@@ -1,4 +1,4 @@
-// background.js (v4.5 - Firefox)
+// background.js (v4.7 - Firefox)
 
 // Listen for messages from our content script
 browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -27,6 +27,20 @@ ${request.data}
     browser.tabs.sendMessage(sender.tab.id, { action: "start_scrape" });
   }
 });
+
+// Listen for clicks on the browser action button
+browser.action.onClicked.addListener((tab) => {
+  if (tab.url && tab.url.includes("youtube.com/watch")) {
+    console.log('[Controller] Browser action clicked on YouTube watch page.');
+    // Send a message to the content script to summarize the current video link
+    browser.tabs.sendMessage(tab.id, { action: 'summarize_link', url: tab.url });
+  } else {
+    console.log('[Controller] Browser action clicked on non-YouTube watch page.');
+    // Optionally, open a new tab with YouTube or show a message
+    browser.tabs.create({ url: "https://www.youtube.com" });
+  }
+});
+
 
 function openGeminiWithPrompt(prompt) {
   // Store the prompt and open Gemini. The rest of the flow is the same.
