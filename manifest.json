@@ -1,11 +1,10 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "YouTube Summarizer Co-pilot",
-  "version": "4.6",
+  "version": "4.7",
   "description": "Adds buttons to YouTube to summarize videos by sending either the link or the full transcript to Gemini.",
-  "permissions": [
-    "storage",
-    "tabs",
+  "permissions": ["storage", "tabs"],
+  "host_permissions": [
     "https://*.youtube.com/*",
     "https://gemini.google.com/*"
   ],
@@ -17,9 +16,13 @@
       "matches": ["https://*.youtube.com/*"],
       "js": ["content_scripts/youtube_scraper.js"],
       "css": ["content_scripts/style.css"]
+    },
+    {
+      "matches": ["https://gemini.google.com/*"],
+      "js": ["content_scripts/gemini_automator.js"]
     }
   ],
-  "browser_action": {
+  "action": {
     "default_icon": {
       "16": "icons/star-icon-16.svg",
       "48": "icons/star-icon-48.svg"
@@ -31,7 +34,10 @@
     "48": "icons/star-icon-48.svg"
   },
   "web_accessible_resources": [
-    "icons/summarize-icon.svg"
+    {
+      "resources": ["icons/summarize-icon.svg"],
+      "matches": ["https://*.youtube.com/*"]
+    }
   ],
   "browser_specific_settings": {
     "gecko": {
