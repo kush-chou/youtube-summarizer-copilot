@@ -27,12 +27,14 @@
       "16": "icons/star-icon-16.svg",
       "48": "icons/star-icon-48.svg"
     },
-    "default_title": "YouTube Summarizer"
+    "default_title": "YouTube Summarizer",
+    "default_popup": "popup/popup.html"
   },
   "icons": {
     "16": "icons/star-icon-16.svg",
     "48": "icons/star-icon-48.svg"
   },
+
   "web_accessible_resources": [
     {
       "resources": ["icons/summarize-icon.svg"],

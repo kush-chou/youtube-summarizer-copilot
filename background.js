@@ -9,7 +9,7 @@ browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
       "[Controller] Received request to summarize link: ",
       request.url,
     );
-    prompt = `Please provide a concise summary of the key points from the following YouTube video:
+    prompt = `Please watch and provide a concise summary of the key points from the following YouTube video:
 
 ${request.url}`;
     openGeminiWithPrompt(prompt);
@@ -51,39 +51,48 @@ browser.action.onClicked.addListener((tab) => {
   }
 });
 
-function openGeminiWithPrompt(prompt) {
-  // Create the Gemini tab
-  browser.tabs
-    .create({ url: "https://gemini.google.com/gem/39f5525ff9d7" })
-    .then((geminiTab) => {
-      // Add a listener that waits for this specific tab to finish loading
-      const listener = (tabId, changeInfo, tab) => {
-        // Make sure it's the correct tab and it's fully loaded
-        if (
-          tabId === geminiTab.id &&
-          changeInfo.status === "complete" &&
-          tab.url.startsWith("https://gemini.google.com/")
-        ) {
-          console.log("[Controller] Gemini tab is ready. Sending prompt.");
+async function openGeminiWithPrompt(prompt) {
+  try {
+    const data = await browser.storage.local.get("geminiId");
+    const geminiId = data.geminiId;
+    let geminiUrl = "https://gemini.google.com/";
+    if (geminiId) {
+      geminiUrl = `https://gemini.google.com/gem/${geminiId}`;
+    }
 
-          // Send the prompt directly to the content script in that tab
-          browser.tabs
-            .sendMessage(tabId, {
-              action: "inject_prompt",
-              prompt: prompt,
-            })
-            .catch((error) => {
-              console.error(
-                "[Controller] Could not send prompt to Gemini tab:",
-                error.message,
-              );
-            });
+    // Create the Gemini tab
+    const geminiTab = await browser.tabs.create({ url: geminiUrl });
 
-          // Clean up the listener to prevent it from running again
-          browser.tabs.onUpdated.removeListener(listener);
-        }
-      };
+    // Add a listener that waits for this specific tab to finish loading
+    const listener = (tabId, changeInfo, tab) => {
+      // Make sure it's the correct tab and it's fully loaded
+      if (
+        tabId === geminiTab.id &&
+        changeInfo.status === "complete" &&
+        tab.url.startsWith("https://gemini.google.com/")
+      ) {
+        console.log("[Controller] Gemini tab is ready. Sending prompt.");
 
-      browser.tabs.onUpdated.addListener(listener);
-    });
+        // Send the prompt directly to the content script in that tab
+        browser.tabs
+          .sendMessage(tabId, {
+            action: "inject_prompt",
+            prompt: prompt,
+          })
+          .catch((error) => {
+            console.error(
+              "[Controller] Could not send prompt to Gemini tab:",
+              error.message,
+            );
+          });
+
+        // Clean up the listener to prevent it from running again
+        browser.tabs.onUpdated.removeListener(listener);
+      }
+    };
+
+    browser.tabs.onUpdated.addListener(listener);
+  } catch (error) {
+    console.error("[Controller] Error opening Gemini tab:", error);
+  }
 }

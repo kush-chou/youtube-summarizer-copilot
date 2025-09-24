@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Summarizer Options</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 15px;
+                width: 250px;
+            }
+            h3 {
+                color: #333;
+                margin-top: 0;
+                text-align: center;
+            }
+            label {
+                display: block;
+                margin-bottom: 5px;
+                font-size: 12px;
+            }
+            input[type="text"] {
+                width: 95%;
+                padding: 8px;
+                margin-bottom: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+            button {
+                width: 100%;
+                padding: 10px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-weight: bold;
+            }
+            button:hover {
+                background-color: #0056b3;
+            }
+            #status {
+                margin-top: 10px;
+                font-size: 12px;
+                text-align: center;
+                color: green;
+            }
+        </style>
+    </head>
+    <body>
+        <h3>Summarizer Settings</h3>
+        <label for="geminiId">Custom Gem ID:</label>
+        <input type="text" id="geminiId" placeholder="e.g., 39f5525ff9d7" />
+        <button id="save">Save</button>
+        <div id="status"></div>
+        <script src="popup.js"></script>
+    </body>
+</html>
